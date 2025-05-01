@@ -27,4 +27,4 @@ end_time = time.time() # конец времени загрузки
 
 result_time = end_time - start_time #количества времени на загрузку страницы
 
-print(result_time) #вывод времени normal 1.0638844966888428 eager
+print(result_time) #вывод времени normal 1.0638844966888428 eager 0.16231369972229004
