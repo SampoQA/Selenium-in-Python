@@ -1,0 +1,22 @@
+import os  # Импорт модуля для работы с операционной системой (пути, директории)
+import time  # Импорт модуля для работы со временем (задержки, ожидания)
+from selenium import webdriver  # Импорт веб-драйвера Selenium для автоматизации браузера
+from webdriver_manager.chrome import ChromeDriverManager  # Менеджер для автоматической установки ChromeDriver
+from selenium.webdriver.chrome.service import Service  # Класс для управления сервисом ChromeDriver
+
+chrome_options = webdriver.ChromeOptions() # Создаем объект-конфигуратор для управления настройками Chrome
+prefs = {
+    "download.default_directory": f"{os.getcwd()}\downloads" #get current work directory проваливаеться в папку где находиться этот запускаемый код, и ещё в папку глубже downloads
+}
+chrome_options.add_experimental_option("prefs", prefs) #прокидывание опции на которую нет пакетного готового решения, "prefs" - зарезервированное имя для функции, prefs - непосредственно наш словарь 
+
+service = Service(executable_path=ChromeDriverManager().install()) #  Создание сервиса для управления ChromeDriver
+driver = webdriver.Chrome(service=service, options=chrome_options) #Инициализация драйвера Chrome с настройками
+
+driver.get("https://the-internet.herokuapp.com/download") #переход по урл
+
+time.sleep(3) #задержка 3 сек 
+
+driver.find_elements("xpath", "//a")[3].click() #найти все элементы группы а, кликнуть по  третьему из списка 
+
+time.sleep(3) #задержка 3 сек 
