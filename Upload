@@ -12,8 +12,8 @@ driver.get("https://the-internet.herokuapp.com/upload")
 
 time.sleep(3) #задержка 3 сек 
 
-# driver.find_element("xpath","//input[@type='file']").send_keys(f"{os.getcwd()}\\downloads\\2025-05-05_16-34-06.png") #найти один элемент отправить с клавиатуры путь до нашего файла может быть проблема со слешами 
+# driver.find_element("xpath","//input[@type='file']").send_keys(f"{os.getcwd()}\\downloads\\2025-05-05_16-34-06.png") #найти один элемент отправить с клавиатуры путь до нашего файла может быть проблема со слешами в разных операционках 
 # лучше использовать переменные 
 upload_file = driver.find_element("xpath","//input[@type='file']") # если загрузка реализована через скрытую кнопку button,  upload_field = driver.find_element("xpath","//input[@type'file'])
-upload_file.send_keys(f"{os.getcwd()}\\downloads\\2025-05-05_16-34-06.png")
+upload_file.send_keys(f"{os.getcwd()}\\downloads\\2025-05-05_16-34-06.png") #загрузка файла из папки где находиться код плюс еще спуск в отдельную папку
 time.sleep(3) #задержка 3 сек 
