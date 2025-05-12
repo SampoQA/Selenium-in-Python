@@ -24,6 +24,6 @@ TEXT_FIELD = ("xpath","//input[@type='text']") #поле ввода
 wait.until(EC.element_to_be_clickable(ENABLE_BUTTON)).click() # кликнуть как станет кликабельным
 wait.until(EC.element_to_be_clickable(TEXT_FIELD)).send_keys("Black mirror") #заполнить текстом как станет возможным
 time.sleep(5)
-wait.until(EC.text_to_be_present_in_element_value(TEXT_FIELD,"Black mirror")) #дождаться что в конкретном элементе появиться конкретная строчка 
+wait.until(EC.text_to_be_present_in_element_value(TEXT_FIELD,"lak mirror"), message="Кастомное уведомление") #дождаться что в конкретном элементе появиться конкретная строчка ИЛИ сообщение о том, что не тест провалился
 print("Всё ок") #напечатает в терминале если всё получилось
 time.sleep(5)
