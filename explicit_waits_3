@@ -1,0 +1,29 @@
+import time
+
+from selenium import webdriver # Импортируем "пульт управления" для браузера (основной инструмент Selenium)
+from webdriver_manager.chrome import ChromeDriverManager # Импортируем "автопомощника" для автоматической установки Chrome-драйвера
+from selenium.webdriver.chrome.service import Service # Импортируем "инструкцию по запуску" для настройки Chrome-драйвера
+from selenium.webdriver.support.ui import WebDriverWait #драйвер явного ожидания
+from selenium.webdriver.support import expected_conditions as EC #какие условия ожидаем. as EC позволяет писать EC вместо expected_conditions
+
+
+service = Service(executable_path=ChromeDriverManager().install()) #Готовим "инструкцию" для драйвера, указывая где его взять: ChromeDriverManager сам найдет и скачает нужную версию драйвера
+driver = webdriver.Chrome(service=service) # Заводим "машину" (браузер Chrome) с нашей инструкцией driver - наш "руль" для управления браузером
+wait = WebDriverWait(driver, 15, poll_frequency=1)
+
+driver.get("https://the-internet.herokuapp.com/dynamic_controls")
+
+# REMOVE_BUTTON = ("xpath","//button[text()='Remove']") #способ и адрес элемента 
+# driver.find_element(*REMOVE_BUTTON).click() # распаковать кортеж и кликнуть
+# wait.until(EC.invisibility_of_element_located(REMOVE_BUTTON)) #жди пока элемент не исчезнет
+# print("Всё ок") #напечатает в терминале если всё получилось
+
+ENABLE_BUTTON = ("xpath","//button[text()='Enable']") #кнопка 
+TEXT_FIELD = ("xpath","//input[@type='text']") #поле ввода
+
+wait.until(EC.element_to_be_clickable(ENABLE_BUTTON)).click() # кликнуть как станет кликабельным
+wait.until(EC.element_to_be_clickable(TEXT_FIELD)).send_keys("Black mirror") #заполнить текстом как станет возможным
+time.sleep(5)
+wait.until(EC.text_to_be_present_in_element_value(TEXT_FIELD,"Black mirror")) #дождаться что в конкретном элементе появиться конкретная строчка 
+print("Всё ок") #напечатает в терминале если всё получилось
+time.sleep(5)
