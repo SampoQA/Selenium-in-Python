@@ -9,7 +9,7 @@ from selenium.webdriver.support import expected_conditions as EC #какие у�
 options = Options() #создаёт объект, который обычно используется для настройки поведения браузера
 options.add_argument("--headless") # поднять без внешнего проявления
 #options.add_argument("--window-size=1920,1080") # размеры окна 
-options.add_argument("--disable-blink-features=AutomationControlled") # скрыть что это алгоритм, а не человек
+options.add_argument("--disable-blink-features=AutomationControlled") #отключить режим автоматизации
 options.add_argument("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36") #юзерские показатели открывателя браузера
 
 service = Service(ChromeDriverManager().install()) #Готовим "инструкцию" для драйвера, указывая где его взять: ChromeDriverManager сам найдет и скачает нужную версию драйвера
