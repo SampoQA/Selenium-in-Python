@@ -21,7 +21,7 @@ alert = wait.until(EC.alert_is_present()) #опрокидывать ничего
 driver.switch_to.alert #переключаемся на алерт 
 
 time.sleep(3)
-
+print(alert.text) #напечатает текст из алерта
 alert.dismiss() #принять высплывающее окно нажав cancel
 
 time.sleep(3)
