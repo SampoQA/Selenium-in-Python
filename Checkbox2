@@ -11,7 +11,8 @@ Checkbox_home_action = ("xpath", "//span[@class='rct-checkbox']")
 
 driver.get("https://demoqa.com/checkbox")
 
-print(driver.find_element(*Checkbox_home_status).is_selected())
-driver.find_element(*Checkbox_home_action).click()
-print(driver.find_element(*Checkbox_home_status).is_selected())
+print(driver.find_element(*Checkbox_home_status).is_selected()) #для проверки статуса
+driver.find_element(*Checkbox_home_action).click()        #кнопка для действия
+print(driver.find_element(*Checkbox_home_status).is_selected()) #для проверки статуса
+
 time.sleep(3)
