@@ -1,0 +1,22 @@
+import time
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+
+service = Service(ChromeDriverManager().install())
+driver = webdriver.Chrome(service=service)
+
+Checkbox_home_status = ("xpath", "//li[text()='Cras justo odio']")
+
+driver.get("https://demoqa.com/selectable")
+before = driver.find_element(*Checkbox_home_status).get_attribute("class")
+print(before)
+driver.find_element(*Checkbox_home_status).click()
+
+after = driver.find_element(*Checkbox_home_status).get_attribute("class")
+#print(after)
+if "active" in after: #подтверди что условия выполняется 
+    print("ok")
+
+#assert "active" in after      #подтверди что условия выполняется 
+time.sleep(3)
