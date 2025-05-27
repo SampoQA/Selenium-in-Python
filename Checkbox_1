@@ -1,0 +1,22 @@
+import time
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+
+service = Service(ChromeDriverManager().install())
+driver = webdriver.Chrome(service=service)
+
+Checkbox_1 = ("xpath", "(//input[@type='checkbox'])[1]")
+
+driver.get("https://the-internet.herokuapp.com/checkboxes")
+time.sleep(5)
+
+print(driver.find_element(*Checkbox_1).get_attribute("checked")) #напечать статус чекбокса до клика 
+driver.find_element(*Checkbox_1).click() #чекбокс клик 
+print(driver.find_element(*Checkbox_1).get_attribute("checked")) #напечать статус чекбокса после клика 
+#print(type(driver.find_element(*Checkbox_1).get_attribute("checked")))
+#assert driver.find_element(*Checkbox_1).get_attribute("checked") is not None #не пустота проверка чек бок выбран поставлена галочка
+assert driver.find_element(*Checkbox_1).get_attribute("checked") == "true" #проверка чек бок выбран поставлена галочка
+print("ok") #пичатает после ассерт
+#time.sleep(5)
+driver.quit()
