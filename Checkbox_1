@@ -17,6 +17,10 @@ print(driver.find_element(*Checkbox_1).get_attribute("checked")) #напечат
 #print(type(driver.find_element(*Checkbox_1).get_attribute("checked")))
 #assert driver.find_element(*Checkbox_1).get_attribute("checked") is not None #не пустота проверка чек бок выбран поставлена галочка
 assert driver.find_element(*Checkbox_1).get_attribute("checked") == "true" #проверка чек бок выбран поставлена галочка
-print("ok") #пичатает после ассерт
+print("ok") #печатает после ассерт
 #time.sleep(5)
 driver.quit()
+
+print(driver.find_element(*Checkbox_1).is_selected()) #специальный метод проверки выбран или нет 
+driver.find_element(*Checkbox_1).click()
+print(driver.find_element(*Checkbox_1).is_selected()) #специальный метод проверки  выбран или нет 
