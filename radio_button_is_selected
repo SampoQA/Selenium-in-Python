@@ -1,0 +1,29 @@
+import time
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+
+service = Service(ChromeDriverManager().install())
+driver = webdriver.Chrome(service=service)
+
+YES_RADIO_STATUS = ("xpath", "//input[@id='yesRadio']") # Для статуса
+YES_RADIO_ACTION = ("xpath", "//label[@for='yesRadio']") # Для взаимодействия
+NO_RADIO_STATUS = ("xpath", "//input[@id='noRadio']")
+NO_RADIO_ACTION = ("xpath", "//label[@for='noRadio']")
+IMPRESSIVE_RADIO_STATUS = ("xpath", "//input[@id='impressiveRadio']")
+
+driver.get("https://demoqa.com/radio-button")
+
+print(driver.find_element(*YES_RADIO_STATUS).is_selected()) #напечатай статус радиокнопки до клика
+
+driver.find_element(*YES_RADIO_ACTION).click()
+print(driver.find_element(*YES_RADIO_STATUS).is_selected()) #напечатай статус радиокнопки после клика
+
+assert driver.find_element(*NO_RADIO_STATUS).is_enabled() is False, "Кнопка доступна" #False - не доступна. Метод доступен элемент 
+
+assert driver.find_element(*YES_RADIO_STATUS).is_selected() is True, "Радио-кнопка не выбрана" #Метод доступен элемент  
+# is_selected() - Возвращает статус чекбокса и радио-кнопки
+# is_enabled() - Проверяет доступен ли элемент для взаиодействия
+# get_attribute(атрибут) - Получает указанный атрибут элемента
+
+time.sleep(3)
