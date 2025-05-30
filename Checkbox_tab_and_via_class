@@ -1,0 +1,36 @@
+import time
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+
+service = Service(ChromeDriverManager().install())
+driver = webdriver.Chrome(service=service)
+
+tab_1 = ("xpath","//*[@id='demo-tab-grid']") #адрес вкладки
+button_1 = ("xpath","//*[@id='row1']/li[1]") #адрес кнопки
+button_2 = ("xpath","//*[@id='row1']/li[2]") #адрес кнопки
+
+driver.get("https://demoqa.com/selectable") #адрес сайтв
+
+before = driver.find_element(*tab_1).get_attribute("class") #найти элемент, получить атрибут "класс"
+print(before) #написать статус элемента до клика 
+
+driver.find_element(*tab_1).click() #найти элемент-вкладку, кликнуть по нему
+after = driver.find_element(*tab_1).get_attribute("class") #проверка кнопки вкладки после клика
+
+if "active" in after: #подтверди что условия выполняется и тогда напиши ок 
+    print("ok")
+
+before_button_1 = driver.find_element(*button_1).get_attribute("class") #написать статус элемента до клика через проверку вытянутого атрибута
+
+driver.find_element(*button_1).click()
+after_button_1 = driver.find_element(*button_1).get_attribute("class") #проверка кнопки  после клика через проверку вытянутого атрибута
+
+if "active" in after_button_1: #подтверди что условия выполняется 
+    print("ok")
+
+# is_selected() - Возвращает статус чекбокса и радио-кнопки
+# is_enabled() - Проверяет доступен ли элемент для взаиодействия
+# get_attribute(атрибут) - Получает указанный атрибут элемента
+
+time.sleep(3)
