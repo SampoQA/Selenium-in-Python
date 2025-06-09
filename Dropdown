@@ -1,0 +1,41 @@
+import time
+
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.support.select import Select
+
+service = Service(ChromeDriverManager().install())
+driver = webdriver.Chrome(service=service)
+
+select_locator = ("xpath", "//select[@id='dropdown']")
+
+driver.get("http://the-internet.herokuapp.com/dropdown") # Страница для работы
+Dropdown = Select(driver.find_element(*select_locator)) # Выбор элемента по индексу
+
+# time.sleep(2) # Задержка для визуализации выбора
+# # Dropdown.select_by_visible_text("Option 1") # Выбор элемента по видимому тексту
+# Dropdown.select_by_value("2") # Выбор элемента по значению
+# #индексация элементов начинается с 0 то есть с момента ничего в списке не выбрано
+# # Dropdown.select_by_index(1) # Выбор элемента по индексу
+# time.sleep(2) # Задержка для визуализации выбора
+all_options = Dropdown.options # Получение всех элементов выпадающего списка
+#print(all_options = Dropdown.options) # Получение всех элементов выпадающего списка
+
+#Проверка что в список добавлен новый элемент по конкретному значению 
+# for option in all_options: # Перебор всех элементов выпадающего списка
+#     time.sleep(1) # Задержка для визуализации
+#     if "Option 1"in option.text:
+#         print("опция  присутствует") # проверка наличия опции   
+#     #Dropdown.select_by_visible_text(option.text) # Выбор элемента по видимому тексту
+
+# Перебор всех элементов выпадающего списка  получаем индекс элемента по его значению
+# for option in all_options:
+#     time.sleep(1)  # Задержка для визуализации
+#     Dropdown.select_by_index(all_options.index(option))  # получаем индекс элемента по его значению 
+
+# Получение выбранного элемента по значению
+
+for option in all_options:
+    time.sleep(1)  # Задержка для визуализации
+    Dropdown.select_by_value(option.get_attribute("value"))  # получаем значение элемента по его значению
