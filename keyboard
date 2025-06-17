@@ -1,0 +1,22 @@
+import time
+
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver import Keys
+
+
+service = Service(ChromeDriverManager().install())
+driver = webdriver.Chrome(service=service)
+
+driver.get("http://the-internet.herokuapp.com/key_presses") # Сайт для работы
+
+KEY_PRESS_INPUT = ("xpath", "//input[@id='target']") # Поле ввода
+
+driver.find_element(*KEY_PRESS_INPUT).send_keys("Hello World") # Ввод текста
+time.sleep(2) # Задержка для наблюдения
+
+driver.find_element(*KEY_PRESS_INPUT).send_keys(Keys.CONTROL + "A") # Выделение всего текста
+time.sleep(2) # Задержка для наблюдения
+driver.find_element(*KEY_PRESS_INPUT).send_keys(Keys.BACKSPACE) # Удаление выделенного текста
+time.sleep(2) # Задержка для наблюдения
