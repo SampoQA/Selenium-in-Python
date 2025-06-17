@@ -20,3 +20,18 @@ driver.find_element(*KEY_PRESS_INPUT).send_keys(Keys.CONTROL + "A") # Выдел
 time.sleep(2) # Задержка для наблюдения
 driver.find_element(*KEY_PRESS_INPUT).send_keys(Keys.BACKSPACE) # Удаление выделенного текста
 time.sleep(2) # Задержка для наблюдения
+
+
+driver.get("https://clipboardjs.com/")
+
+COPY_LOCATOR = ("xpath", "//button[@data-clipboard-target='#bar']")
+PASTE_LOCATOR = ("xpath", "//textarea[@id='bar']")
+
+COPY = driver.find_element(*COPY_LOCATOR)
+PASTE = driver.find_element(*PASTE_LOCATOR)
+
+PASTE.send_keys(cmd_ctrl + "A") # Выделим все внутри поля
+time.sleep(2)
+PASTE.send_keys(cmd_ctrl + "X") # Вырежем весь текст
+time.sleep(2)
+PASTE.send_keys(cmd_ctrl + "V") # Вставим весь текст
