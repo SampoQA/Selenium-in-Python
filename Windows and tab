@@ -1,0 +1,58 @@
+import time # Необходимо для ожидания загрузки страницы
+from selenium import webdriver # Импортируем webdriver из selenium для управления браузером
+from selenium.webdriver.chrome.options import Options # Импортируем Options для настройки браузера
+from selenium.webdriver.common.by import By # Импортируем By для использования локаторов
+
+# Настройки браузера
+options = Options() # Создаём объект Options для настройки браузера
+options.add_argument("--ignore-certificate-errors") # Игнорируем ошибки сертификатов
+options.add_argument("--window-size=1920,1080") # Устанавливаем размер окна браузера
+driver = webdriver.Chrome(options=options) # Создаём экземпляр Chrome с заданными настройками
+
+# Локаторы
+FOR_BUSINESS_BUTTON_LOCATOR = (By.XPATH, "//a[contains(text(),'For Business')]")
+START_FREE_BUTTON_LOCATOR = (By.XPATH, "//div[contains(@class, 'text-block-3') and contains(text(),'Start for Free')]")
+
+
+# Открываем страницу
+driver.get("https://hyperskill.org/courses")
+time.sleep(5)  # Увеличим задержку на случай медленной загрузки
+
+# Кликаем на "For Business" 
+try:
+    driver.find_element(*FOR_BUSINESS_BUTTON_LOCATOR).click() # Находим кнопку "For Business" и кликаем по ней
+    print("Кнопка 'For Business' найдена и нажата")
+except Exception as e: # Обрабатываем исключения, если кнопка не найдена или не кликабельна
+    # Если кнопка не найдена, выводим сообщение об ошибке и завершаем
+    print("❌ Не удалось нажать на 'For Business':", e)
+    driver.quit()
+    exit()
+# except — часть конструкции обработки ошибок (try-except), которая говорит: «Если в блоке try случится ошибка…»
+
+# Exception — это базовый класс для всех типов ошибок (исключений) в Python, то есть ловит практически любую ошибку, которая может произойти.
+
+# as e — сохраняет объект ошибки в переменную e, чтобы потом можно было посмотреть, что именно пошло не так.
+
+time.sleep(5)  # Ждём пока откроется новая вкладка
+
+# Переключаемся на вторую вкладку, если она появилась
+tabs = driver.window_handles
+if len(tabs) > 1:
+    driver.switch_to.window(tabs[1])
+    print("Переключились на вкладку:", driver.current_url)
+else:
+    print("❌ Новая вкладка не открылась")
+    driver.quit()
+    exit()
+
+time.sleep(5)
+
+# Кликаем на "Start for Free"
+try:
+    driver.find_element(*START_FREE_BUTTON_LOCATOR).click()
+    print("Кнопка 'Start for Free' найдена и нажата")
+except Exception as e:
+    print("❌ Не удалось нажать на 'Start for Free':", e)
+
+time.sleep(5)
+driver.quit()  # Закрываем браузер
