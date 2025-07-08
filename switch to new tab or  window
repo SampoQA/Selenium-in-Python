@@ -1,0 +1,13 @@
+import time # Необходимо для ожидания загрузки страницы
+
+from selenium import webdriver # Импортируем webdriver из selenium для управления браузером
+from selenium.webdriver.chrome.options import Options # Импортируем Options для настройки браузера
+from selenium.webdriver.common.by import By # Импортируем By для использования локаторов
+# Настройки браузера
+options = Options() # Создаём объект Options для настройки браузера
+options.add_argument("--ignore-certificate-errors") # Игнорируем ошибки сертификатов
+options.add_argument("--window-size=1920,1080") # Устанавливаем размер окна браузера
+driver = webdriver.Chrome(options=options) # Создаём экземпляр Chrome с заданными настройками
+driver.switch_to.new_window("window") # Открываем новую вкладку в браузере указываем в скобках "tab" или "window" 
+driver.get("https://ya.ru") # Переходим на нужный URL
+time.sleep(2) # Ждём 2 секунды, чтобы страница успела загрузиться
