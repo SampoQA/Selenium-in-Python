@@ -1,0 +1,80 @@
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+import time
+
+# Инициализация драйвера
+driver = webdriver.Chrome()
+driver.maximize_window()
+
+# Открываем первую вкладку
+driver.get("https://hyperskill.org/login")
+tabs = [driver.current_window_handle]  # Сохраняем идентификатор первой вкладки
+
+# Открываем вторую вкладку
+driver.execute_script("window.open('');")
+driver.switch_to.window(driver.window_handles[1])
+driver.get("https://www.avito.ru/")
+tabs.append(driver.current_window_handle)
+
+# Открываем третью вкладку
+driver.execute_script("window.open('');")
+driver.switch_to.window(driver.window_handles[2])
+driver.get("https://www.ozon.ru/")
+tabs.append(driver.current_window_handle)
+
+# Пауза для загрузки всех страниц
+time.sleep(3)
+
+# Выводим title всех страниц
+print("Titles всех страниц:")
+for i, handle in enumerate(tabs, 1):
+    driver.switch_to.window(handle)
+    print(f"Вкладка {i}: {driver.title}")
+
+# Кликаем на элементы во всех вкладках
+print("\nКликаем на элементы:")
+
+# Клик в первой вкладке (Hyperskill)
+driver.switch_to.window(tabs[0])
+try:
+    # Пробуем кликнуть по логотипу через CSS-селектор
+    logo = WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable((By.CSS_SELECTOR, "a[href='https://hyperskill.org']"))
+    )
+    logo.click()
+    print("- Hyperskill: клик по логотипу")
+except:
+    print("- Hyperskill: элемент не найден")
+
+# Клик во второй вкладке (Avito)
+driver.switch_to.window(tabs[1])
+try:
+    # Клик по категории "Электроника"
+    category = WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable((By.XPATH, "//a[@href='/rossiya/elektronika']"))
+    )
+    category.click()
+    print("- Avito: клик по категории 'Электроника'")
+except:
+    print("- Avito: элемент не найден")
+
+# Клик в третьей вкладке (Ozon)
+driver.switch_to.window(tabs[2])
+try:
+    # Клик по кнопке "Каталог"
+    catalog_btn = WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable((By.XPATH, "//button[contains(., 'Каталог')]"))
+    )
+    catalog_btn.click()
+    print("- Ozon: клик по кнопке 'Каталог'")
+except:
+    print("- Ozon: элемент не найден")
+
+# Пауза для визуальной проверки
+time.sleep(3)
+
+# Закрываем браузер
+driver.quit()
