@@ -1,0 +1,23 @@
+import time
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+
+options = Options()
+options.add_argument("--window-size=1920,1080")
+name_of_driver = webdriver.Chrome(options=options)
+
+
+FORM_NAME_FIELD_LOCATOR = ("xpath", "//input[@type='text']")
+BUTTON_HOME = ("xpath", "//a[@href='Index.html'] ")
+
+name_of_driver.get("https://demo.automationtesting.in/Frames.html")  # Replace with the actual login URL
+name_of_driver.switch_to.frame("singleframe")  # Switch to the frame if necessary
+
+time.sleep(5)  # Wait for login to complete
+name_of_driver.find_element(*FORM_NAME_FIELD_LOCATOR).send_keys("John Doe")  # Replace with the actual form field locator and value 
+time.sleep(5)  # Wait for the input to be processed
+
+name_of_driver.switch_to.default_content()  # Switch back to the default content if needed
+name_of_driver.find_element(*BUTTON_HOME).click()  # Click the home button
+time.sleep(5)  # Wait for the input to be processed
+name_of_driver.quit()  # Close the browser after the operations
