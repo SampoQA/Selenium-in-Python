@@ -24,4 +24,4 @@ time.sleep(3)
 print(alert.text) #напечатает текст из алерта
 alert.dismiss() #принять высплывающее окно нажав cancel
 
-time.sleep(3)
+time.sleep(3) # train to commit
